@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">intents-lab</string>
+    <string name="intents_and_intent_filters">Intents and Intent Filters</string>
+    <string name="go_back">Go Back</string>
+    <string name="this_message_is_51sp">This Message is 51SP</string>
+    <string name="explicit_intents">Explicit Intents</string>
+    <string name="explicit_intent_msg">An explicit intent is one that you use to launch a specific app component, such as a particular activity or service in your app. To create an explicit intent, define the component name for the Intent object—all other intent properties are optional.</string>
+    <string name="activity_transition">Activity Transition</string>
+    <string name="launch_download_service">Launch Download Service</string>
+</resources>

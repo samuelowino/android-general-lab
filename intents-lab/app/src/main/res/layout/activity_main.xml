@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/blue"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/title_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/intents_and_intent_filters"
+        android:textSize="31sp"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:layout_margin="12dp"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"/>
+
+    <View
+        android:id="@+id/top_divider"
+        android:layout_below="@+id/title_view"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="2dp"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/explicit_intents_view"
+        android:layout_below="@+id/top_divider"
+        android:layout_margin="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:padding="8dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/explicit_intents"
+                android:textColor="@color/yellow"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="@string/explicit_intent_msg"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/activity_transition_action_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_transition"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:chipIcon="@drawable/ic_action_arrow_right"
+                app:chipIconSize="24dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/launch_service_action_view"
+                android:text="@string/launch_download_service"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                app:chipIconSize="24dp"
+                app:chipIcon="@drawable/ic_action_arrow_right"
+                android:textColor="@color/blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</RelativeLayout>
