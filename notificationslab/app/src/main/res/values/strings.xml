@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">notifications-lab</string>
+    <string name="notification_lab">Notification Lab</string>
+    <string name="normal_notification">Normal Notification</string>
+    <string name="happy_happy">Happy Happy 😁!!!</string>
+    <string name="remind_to_be_happy">Remind to be happy😇</string>
+</resources>
