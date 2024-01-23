@@ -3,6 +3,7 @@ package com.owino.intents_lab.services
 import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
@@ -32,6 +33,7 @@ class DownloadService : LifecycleService() {
         url?.let {
             lifecycleScope.launch(Dispatchers.IO) {
                 val result = download(url)
+                Log.e("TAG", "onStartCommand: result \n$result", )
             }
         }
         return START_STICKY
