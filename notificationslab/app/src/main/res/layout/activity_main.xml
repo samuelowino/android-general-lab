@@ -29,4 +29,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <com.google.android.material.chip.Chip
+        android:id="@+id/normal_notification_with_action"
+        android:text="@string/notification_with_action"
+        app:chipIcon="@drawable/ic_action_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

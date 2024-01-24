@@ -21,6 +21,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver
+            android:name="com.owino.notifications_lab.background.ImportantBroadcastReceiver"
+            android:exported="false"
+            android:enabled="true">
+            <intent-filter>
+                <action
+                    android:name="CANCEL_ACTION"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

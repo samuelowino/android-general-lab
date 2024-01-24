@@ -4,4 +4,9 @@
     <string name="normal_notification">Normal Notification</string>
     <string name="happy_happy">Happy Happy 😁!!!</string>
     <string name="remind_to_be_happy">Remind to be happy😇</string>
+    <string name="notification_with_action">Notification With Action</string>
+    <string name="missing_notification_permissions">Missing Notification Permissions</string>
+    <string name="wake_up_alarm">Wake up Alarm</string>
+    <string name="it_s_8am_wake_up_now">It\'s 8AM, wake up now🔔</string>
+    <string name="general_stop">Stop</string>
 </resources>

@@ -5,6 +5,8 @@ import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -15,13 +17,16 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.android.material.chip.Chip
+import com.owino.notifications_lab.background.ImportantBroadcastReceiver
 
 class MainActivity : AppCompatActivity() {
     private lateinit var normalNotificationChip: Chip
+    private lateinit var actionNotificationChip: Chip
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         normalNotificationChip = findViewById(R.id.normal_notification)
+        actionNotificationChip = findViewById(R.id.normal_notification_with_action)
         normalNotificationChip.setOnClickListener {
             if (notificationPermissionCheck()) {
                 createNotificationChannel()
@@ -29,11 +34,55 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(
                     applicationContext,
-                    "Missing Notification Permissions",
+                    getString(R.string.missing_notification_permissions),
                     Toast.LENGTH_LONG
                 ).show()
             }
         }
+        actionNotificationChip.setOnClickListener {
+            if (notificationPermissionCheck()) {
+                createNotificationChannel()
+                showNotificationWithAction()
+            } else {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.missing_notification_permissions),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun showNotificationWithAction() {
+        val notificationId = 778811
+        NotificationManagerCompat.from(applicationContext)
+            .notify(notificationId, actionNotification())
+    }
+
+    private fun actionNotification(): Notification {
+        val title = resources.getString(R.string.wake_up_alarm)
+        val message = resources.getString(R.string.it_s_8am_wake_up_now)
+        val launchIntent = Intent(applicationContext, MainActivity::class.java)
+        val launchPendingIntent = PendingIntent.getActivity(applicationContext, 0, launchIntent,
+            PendingIntent.FLAG_IMMUTABLE)
+        val intent = Intent(applicationContext, ImportantBroadcastReceiver::class.java)
+        intent.putExtra("ACTION_TYPE","CANCEL_ACTION")
+        val pendingIntent = PendingIntent.getBroadcast(
+            applicationContext, ACTION_BROADCAST_RECEIVER_ID, intent,
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        return NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
+            .setContentTitle(title)
+            .setContentText(message)
+            .setSmallIcon(R.drawable.ic_action_action)
+            .addAction(
+                R.drawable.ic_action_cancel,
+                resources.getString(R.string.general_stop),
+                pendingIntent
+            )
+            .setContentIntent(launchPendingIntent)
+            .build()
     }
 
     private fun notificationPermissionCheck(): Boolean {
@@ -110,5 +159,6 @@ class MainActivity : AppCompatActivity() {
         const val NOTIFICATION_CHANNEL_ID = "af4ed4e3-6a00-4ddf-9fbd-bb5bc2497722"
         const val NOTIFICATION_CHANNEL_NAME = "Normal Notifications Channel"
         const val NOTIFICATION_PERMISSION_REQUEST_CODE = 55544411
+        const val ACTION_BROADCAST_RECEIVER_ID = 66773311
     }
 }
