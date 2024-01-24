@@ -1,8 +1,14 @@
 # Intents Lab
-- Implicit intents use-cases
-- Explicit Intents use-cases
+- [x] Implicit intents use-cases
+- [x] Explicit Intents use-cases
 
 # Notifications Lab
-- Notification Channels
-- Simple Plain Text Notifications
-- Notification Actions
+- [x] Notification Channels
+- [x] Simple Plain Text Notifications
+- [x] Notification Actions
+- [ ] Media Notifications
+- [ ] Notification Updates | Groups
+- [ ] Quick Reply
+- [ ] Popup Messages
+- [ ] Notification Badges
+
