@@ -8,8 +8,13 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.media.MediaMetadataCompat
+import android.support.v4.media.session.MediaSessionCompat
+import android.support.v4.media.session.PlaybackStateCompat
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -19,14 +24,17 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.android.material.chip.Chip
 import com.owino.notifications_lab.background.ImportantBroadcastReceiver
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var normalNotificationChip: Chip
     private lateinit var actionNotificationChip: Chip
+    private lateinit var mediaNotificationChip: Chip
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         normalNotificationChip = findViewById(R.id.normal_notification)
         actionNotificationChip = findViewById(R.id.normal_notification_with_action)
+        mediaNotificationChip = findViewById(R.id.media_notification_with_action)
         normalNotificationChip.setOnClickListener {
             if (notificationPermissionCheck()) {
                 createNotificationChannel()
@@ -51,6 +59,110 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
         }
+        mediaNotificationChip.setOnClickListener {
+            if (notificationPermissionCheck()) {
+                createNotificationChannel()
+                showMediaNotification()
+            } else {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.missing_notification_permissions),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun showMediaNotification() {
+        val title = resources.getString(R.string.marketing_banner)
+        val description = resources.getString(R.string._50_discount_available_now)
+        NotificationManagerCompat.from(applicationContext)
+            .notify(6665522, mediaNotification(title, description))
+    }
+
+    private fun mediaNotification(title: String, description: String): Notification {
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        val notificationRequestCode = 111222
+        val pendingIntent = PendingIntent.getActivity(
+            applicationContext,
+            notificationRequestCode,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
+        return NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
+            .setContentTitle(title)
+            .setContentText(description)
+            .setSmallIcon(R.drawable.ic_action_media)
+            .setColorized(true)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setStyle(notificationMediaStyle())
+            .setContentIntent(pendingIntent)
+            .build()
+
+    }
+
+    private fun notificationMediaStyle(): NotificationCompat.Style {
+        return androidx.media.app.NotificationCompat.MediaStyle()
+            .setMediaSession(mediaSession())
+    }
+
+    private fun mediaSession(): MediaSessionCompat.Token? {
+        val metadata = MediaMetadataCompat.Builder()
+            .putString(MediaMetadataCompat.METADATA_KEY_TITLE, "Noisy Crowd AMR")
+            .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, "Unknown Artist")
+            .putBitmap(
+                MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                BitmapFactory.decodeResource(resources, R.drawable.graphic_large)
+            )
+            .build()
+
+        val playbackState = PlaybackStateCompat.Builder()
+            .setState(PlaybackStateCompat.STATE_PLAYING, 0, 1.0f)
+            .setActions(PlaybackStateCompat.ACTION_PLAY or PlaybackStateCompat.ACTION_PAUSE or PlaybackStateCompat.ACTION_SKIP_TO_NEXT or PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS)
+            .build()
+
+
+        val player = MediaPlayer.create(applicationContext, R.raw.crowd_talking)
+        val sessionToken = "secret-session-token"
+        val session = MediaSessionCompat(applicationContext, sessionToken)
+        session.setCallback(object : MediaSessionCompat.Callback() {
+            override fun onPlay() {
+                if (!player.isPlaying) {
+                    player.start()
+                }
+            }
+
+            override fun onPause() {
+                if (!player.isPlaying) {
+                    player.pause()
+                }
+            }
+
+            override fun onFastForward() {
+                if (!player.isPlaying) {
+                    player.start()
+                }
+            }
+
+            override fun onRewind() {
+                if (!player.isPlaying) {
+                    player.start()
+                }
+            }
+
+            override fun onStop() {
+                if (!player.isPlaying) {
+                    player.stop()
+                }
+            }
+        })
+
+        session.setMetadata(metadata)
+        session.setPlaybackState(playbackState)
+
+        return session.sessionToken
     }
 
     @SuppressLint("MissingPermission")
@@ -64,10 +176,12 @@ class MainActivity : AppCompatActivity() {
         val title = resources.getString(R.string.wake_up_alarm)
         val message = resources.getString(R.string.it_s_8am_wake_up_now)
         val launchIntent = Intent(applicationContext, MainActivity::class.java)
-        val launchPendingIntent = PendingIntent.getActivity(applicationContext, 0, launchIntent,
-            PendingIntent.FLAG_IMMUTABLE)
+        val launchPendingIntent = PendingIntent.getActivity(
+            applicationContext, 0, launchIntent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
         val intent = Intent(applicationContext, ImportantBroadcastReceiver::class.java)
-        intent.putExtra("ACTION_TYPE","CANCEL_ACTION")
+        intent.putExtra("ACTION_TYPE", "CANCEL_ACTION")
         val pendingIntent = PendingIntent.getBroadcast(
             applicationContext, ACTION_BROADCAST_RECEIVER_ID, intent,
             PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE

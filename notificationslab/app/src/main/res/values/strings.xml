@@ -9,4 +9,9 @@
     <string name="wake_up_alarm">Wake up Alarm</string>
     <string name="it_s_8am_wake_up_now">It\'s 8AM, wake up now🔔</string>
     <string name="general_stop">Stop</string>
+    <string name="notification_with_media">Media Session</string>
+    <string name="buy">BUY</string>
+    <string name="buy_later">BUY LATER</string>
+    <string name="marketing_banner">Marketing Banner</string>
+    <string name="_50_discount_available_now">50% Discount available now!</string>
 </resources>
