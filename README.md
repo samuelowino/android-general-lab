@@ -6,7 +6,7 @@
 - [x] Notification Channels
 - [x] Simple Plain Text Notifications
 - [x] Notification Actions
-- [ ] Media Notifications
+- [x] Media Notifications
 - [ ] Notification Updates | Groups
 - [ ] Quick Reply
 - [ ] Popup Messages
