@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_parent_container"
+    android:orientation="vertical"
+    android:background="@color/blue"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/widget_title"
+            android:text="Marvel Heroes"
+            android:padding="12dp"
+            android:textStyle="bold"
+            android:textSize="21sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/widget_timer"
+            android:text="--:--"
+            android:padding="12dp"
+            android:textStyle="bold"
+            android:textSize="21sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:padding="6dp"
+        android:textStyle="bold"
+        android:text="- Malekith 🦸‍♂️"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:padding="6dp"
+        android:textStyle="bold"
+        android:text="- Dormammu 🦸‍♂️"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:padding="6dp"
+        android:textStyle="bold"
+        android:text="- Ivan Vanko 🦸‍♂️"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

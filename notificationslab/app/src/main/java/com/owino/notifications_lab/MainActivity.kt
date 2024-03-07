@@ -120,7 +120,10 @@ class MainActivity : AppCompatActivity() {
 
         val playbackState = PlaybackStateCompat.Builder()
             .setState(PlaybackStateCompat.STATE_PLAYING, 0, 1.0f)
-            .setActions(PlaybackStateCompat.ACTION_PLAY or PlaybackStateCompat.ACTION_PAUSE or PlaybackStateCompat.ACTION_SKIP_TO_NEXT or PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS)
+            .setActions(PlaybackStateCompat.ACTION_PLAY or
+                    PlaybackStateCompat.ACTION_PAUSE or
+                    PlaybackStateCompat.ACTION_SKIP_TO_NEXT or
+                    PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS)
             .build()
 
 
